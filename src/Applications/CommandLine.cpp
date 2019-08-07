@@ -71,8 +71,10 @@ namespace Applications {
 
   void CommandLine::Read()
   {
-      m_time.restart();
-      m_nodes[m_current_node]->GetSession()->Send(m_msg.toUtf8());
+    if(session_id >= 0){
+        m_time.restart();
+        m_nodes[m_current_node]->GetSession()->Send(m_msg.toUtf8());
+    }
   }
 }
 }
