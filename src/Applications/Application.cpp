@@ -5,6 +5,15 @@
 
 int main(int argc, char **argv)
 {
+  int session_id = -1;
+  if(argc == 2)
+  {
+
+  }else if(argc == 3)
+  {
+      session_id = std::atoi(argv[2]);
+
+  }
   QCoreApplication qca(argc, argv);
   QStringList args = QCoreApplication::arguments();
 
@@ -84,7 +93,7 @@ int main(int argc, char **argv)
   if(settings.Console) {
     commandline = QSharedPointer<CommandLine>(new CommandLine(nodes));
     QObject::connect(&qca, SIGNAL(aboutToQuit()), commandline.data(), SLOT(Stop()));
-    commandline->Start();
+    commandline->Start(session_id);
     app_sink->AddSink(commandline.data());
   }
 

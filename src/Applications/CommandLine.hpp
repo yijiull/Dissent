@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QTime>
 #include <QSharedPointer>
 #include <QSocketNotifier>
 #include <QTextStream>
@@ -32,7 +33,7 @@ namespace Applications {
       /**
        * Start the command line services
        */
-      void Start();
+      void Start(int id);
 
       /**
        * A sink input to print data to the console in a pretty way
@@ -54,12 +55,18 @@ namespace Applications {
        */
       void Read();
 
+    signals:
+      void mysignal();
+
     protected:
-      void PrintCommandLine();
+      QTime m_time;
+      int session_id;
+      int time_sum;
+      QString m_msg;
       const QList<QSharedPointer<Node> > &m_nodes;
       int m_current_node;
+      int m_cnt;
       bool m_running;
-      QSocketNotifier m_notify;
       QTextStream m_qtin;
   };
 }
