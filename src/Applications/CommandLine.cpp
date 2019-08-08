@@ -32,9 +32,11 @@ namespace Applications {
           m_msg += (char)(id + 65);
       }
       m_qtout<<m_msg<<endl;
-
     QObject::connect(this, SIGNAL(mysignal()), this, SLOT(Read()));
-    emit mysignal();
+    if(id > 0)
+    {
+        emit mysignal();
+    }
   }
 
   void CommandLine::Stop()
@@ -57,6 +59,10 @@ namespace Applications {
       auto res = m_time.elapsed();
       m_qtout<<res<<endl;
       QString msg = QString::fromUtf8(data.data());
+      int id = int(msg.toStdString()[0]) - 65;
+      if(id != session_id) {
+          return;
+      }
       m_qtout << endl << "Incoming data: " << from->ToString() << " " << msg << endl;
       m_cnt++;
       time_sum += res;

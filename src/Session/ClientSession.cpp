@@ -236,8 +236,10 @@ namespace Client {
         Crypto::Hash hash;
         QByteArray hash_data = hash.ComputeHash(start->GetRegisterBytes());
         int idx = 0;
+        qDebug()  << "yijiull : "<<start->GetSignatures().size();
         foreach(const Connections::Id &id, state->GetOverlay()->GetServerIds()) {
           QByteArray signature = start->GetSignatures()[idx++];
+          qDebug() << idx - 1;
           if(!state->GetKeyShare()->GetKey(id.ToString())->Verify(hash_data, signature)) {
             throw Utils::QRunTimeError("Invalid signature: " + id.ToString());
           }
